@@ -13,7 +13,7 @@ let h = 8;
 
 
 function setup() {
-  createCanvas(windowWidth*2, windowHeight*2);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
