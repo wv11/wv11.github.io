@@ -15,19 +15,33 @@ function setup() {
 
 function draw() {
   background(255);
-  fill(0);
-  noStroke();
-  if (startScreen === false) {
-    drawFloor();
+
+  if (startScreen === true) {
+    startingScreen();
   }
+  else if (startScreen === false) {
+    gameStart();
+  }
+}
+
+function gameStart() {
+  drawFloor();
+}
+
+
+function startingScreen() {
+  let startButtonSize = 100;
+  noStroke();
+  fill(73, 204, 223);
+  rect(windowWidth/2, windowHeight/2, startButtonSize*2, startButtonSize);
+
 }
 
 
 
-
-
-
 function drawFloor() {
+  fill(0);
+  noStroke();
   let floorHeight = windowHeight/4;
   rect(0, windowHeight - floorHeight, windowWidth, floorHeight); 
 }
