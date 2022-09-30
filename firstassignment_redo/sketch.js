@@ -30,10 +30,10 @@ function gameStart() {
 
 
 function startingScreen() {
-  let startButtonSize = 100;
+  let startButtonSize = 200;
   noStroke();
   fill(73, 204, 223);
-  rect(windowWidth/2, windowHeight/2, startButtonSize*2, startButtonSize);
+  rect(windowWidth/2- startButtonSize, windowHeight/2 - startButtonSize/2, startButtonSize*2, startButtonSize);
 
 }
 
