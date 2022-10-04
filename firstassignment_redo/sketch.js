@@ -32,32 +32,38 @@ function gameStart() {
 }
 
 function mousePressed() {
-  if (state === "startScreen" && mouseInsideButton(windowWidth/2- startButtonSize, windowHeight/2 - startButtonSize + startButtonSize*2, windowHeight/2 - startButtonSize/2, (windowHeight/2 - startButtonSize/2) + startButtonSize)) {
-    state = "gameStart";  
+  if (state === "startScreen" && mouseInsideButton(windowWidth/2- startButtonSize, windowHeight/2 - startButtonSize + startButtonSize*2, windowHeight/2 - startButtonSize/2, windowHeight/2 - startButtonSize/2 + startButtonSize)){
+    state = "playGame";  
   }
 }
 
 
 function startingScreen() {
+  textSize(90);
   let buttonX = windowWidth/2- startButtonSize;
   let buttonY = windowHeight/2 - startButtonSize/2;
   let buttonWidth = startButtonSize*2;
   let buttonHeight = startButtonSize;
+  let startX = windowWidth/2 - 90;
+  let startY = windowHeight/2;
   noStroke();  
   if(mouseInsideButton(buttonX, buttonX + buttonWidth, buttonY, buttonY + buttonHeight)) {
     fill(50);
-    buttonHeight = buttonHeight*1.05;
-    buttonWidth = buttonWidth*1.05;
+    buttonHeight = buttonHeight + 20;
+    buttonWidth = buttonWidth+20;
     buttonX = buttonX/1.05;
     buttonY = buttonY/1.05;
+    textSize(100);
+    startX = startX - 10; 
   }
   else {
     fill(0);
   }
   rect(buttonX, buttonY, buttonWidth, buttonHeight);
-  textSize(70);
+  
   fill(255);
-  text("START", );
+  text("START", startX, startY);
+  
 }
 
 function drawFloor() {
@@ -77,3 +83,4 @@ function losingScreen() {
 function mouseInsideButton(left, right, top, bottom) {
   return mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
 }
+
