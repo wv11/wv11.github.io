@@ -8,11 +8,14 @@
 
 let state = "startScreen";
 let startButtonSize = 200;
-let floorHeight = windowHeight/4;
+
+
+
+
 let hit;
-let squarePosition = windowWidth/6;
-let squareSize = 25;
-let squareY = floorHeight - squareSize;
+
+let squareY;
+
 let jumpV = 1;
 
 
@@ -20,9 +23,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 }
 
+
+
+
 function draw() {
+  console.log(state);
   background(255);
-  //hit = collideRectRect();
+  hit = collideRectRect();
 
   if (state === "startScreen") {
     startingScreen();
@@ -33,6 +40,27 @@ function draw() {
   else if (state === "losingScreen") {
     losingScreen();
   }
+}
+
+
+
+function drawFloor() {
+  let floorHeight = windowHeight/4;  
+  fill(0);  
+  noStroke(); 
+  rect(0, windowHeight - floorHeight, windowWidth, floorHeight);
+  
+
+}
+
+function drawSquare()  {
+  let squareSize = 35;
+  squareY =  windowHeight - windowHeight/4 - squareSize; 
+  let squarePosition = windowWidth/6;
+  strokeWeight(3);
+  stroke(0);
+  fill(80, 212, 170);
+  rect(squarePosition, squareY, squareSize, squareSize);
 }
 
 function gameStart() {
@@ -77,13 +105,7 @@ function startingScreen() {
   
 }
 
-function drawFloor() {
-  fill(0);
-  noStroke();
-  
-  rect(0, windowHeight - floorHeight, windowWidth, floorHeight); 
 
-}
 
 
 function losingScreen() {
@@ -95,25 +117,25 @@ function mouseInsideButton(left, right, top, bottom) {
   return mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
 }
 
+
+
 function keyPressed() {
   if (keyCode === 32) {
+    console.log("jump");
     jump();   
   }
+  
 }
 
 
-function drawSquare() {
-  stroke(100);
-  fill(255);
-  rect(squarePosition, squareY, squareSize, squareSize);
-}
+
 
 
 
 function jump() {
   while (squareY < windowHeight/2) {
-    jumpV --;
-    squareY - jumpV;
+    jumpV-= 0.5;
+    squareY = squareY - jumpV;
   }
   
 }
