@@ -8,29 +8,43 @@
 
 let state = "startScreen";
 let startButtonSize = 200;
+let i;
 
 
 
 
-let hit;
 
-let squareY;
+
+//let hit;
+
+
 
 let jumpV = 1;
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  squareYpos = windowHeight - windowHeight/4 - squareSize;
+}
+
+let squareSize = 35;
+let squareYpos;
+
+
+
+
+function draw() { 
+  background(255);
+  //hit = collideRectRect();
+  game();
+
+
 }
 
 
 
-
-function draw() {
+function game() {
   console.log(state);
-  background(255);
-  hit = collideRectRect();
-
   if (state === "startScreen") {
     startingScreen();
   }
@@ -44,6 +58,9 @@ function draw() {
 
 
 
+
+
+
 function drawFloor() {
   let floorHeight = windowHeight/4;  
   fill(0);  
@@ -54,18 +71,26 @@ function drawFloor() {
 }
 
 function drawSquare()  {
-  let squareSize = 35;
-  squareY =  windowHeight - windowHeight/4 - squareSize; 
+  let squareY = squareYpos;
+  console.log(squareYpos);
   let squarePosition = windowWidth/6;
   strokeWeight(3);
   stroke(0);
   fill(80, 212, 170);
-  rect(squarePosition, squareY, squareSize, squareSize);
+  rect(squarePosition, squareYpos, squareSize, squareSize);
+  // if (i === true) {
+  //   jump();
+  // }
 }
 
+
 function gameStart() {
-  drawFloor();
+  drawFloor(); 
   drawSquare();
+  if (keyIsPressed && keyCode === 32) {
+    jump();
+  }
+  
 
 }
 
@@ -77,7 +102,7 @@ function mousePressed() {
 
 
 function startingScreen() {
-  hit = false;
+  //hit = false;
   textSize(90);
   let buttonX = windowWidth/2- startButtonSize;
   let buttonY = windowHeight/2 - startButtonSize/2;
@@ -119,13 +144,14 @@ function mouseInsideButton(left, right, top, bottom) {
 
 
 
-function keyPressed() {
-  if (keyCode === 32) {
-    console.log("jump");
-    jump();   
-  }
-  
-}
+// function keyPressed() {
+//   if (keyCode === 32) {
+//     i = true;
+//     jump();
+    
+       
+//   }
+   
 
 
 
@@ -133,9 +159,10 @@ function keyPressed() {
 
 
 function jump() {
-  while (squareY < windowHeight/2) {
-    jumpV-= 0.5;
-    squareY = squareY - jumpV;
-  }
+  squareYpos -= 10;
+  // while (squareYpos < windowHeight/2) {
+  //   squareYpos += 1;
+  console.log("jumpWorking");
+    
   
 }
