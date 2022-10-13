@@ -155,11 +155,23 @@ function keyPressed() {
 
 
 
-function jump() {
-  let gravity = 5;
-  let jumpVelocity;
+
+
+
+
+function jump() { 
+  let jumpVelocity = -0.001;
   if (keyIsPressed && keyCode === 32 && squareYpos === windowHeight - windowHeight/4 - squareSize) {
-    squareYpos = squareYpos + jumpVelocity;
+    while ( squareYpos > windowHeight/2) {
+      squareYpos ;
+    }
+    
+    
+    
+    // let gravity = 5;
+    // squareYpos = squareYpos + jumpVelocity;
+    // jumpVelocity = jumpVelocity + gravity;
+
     
     
     
