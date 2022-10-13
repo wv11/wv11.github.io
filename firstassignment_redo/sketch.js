@@ -8,8 +8,11 @@
 
 let state = "startScreen";
 let startButtonSize = 200;
-let i;
-let yForce = 0;
+let squareSize = 35;
+let squareYpos = windowHeight - windowHeight/4 - squareSize;
+let gravity = 0.3;
+let op = -10;
+let yVelocity = 0;
 
 
 
@@ -19,16 +22,15 @@ let yForce = 0;
 
 
 
-let jumpV = 1;
+
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  squareYpos = windowHeight - windowHeight/4 - squareSize;
+  
 }
 
-let squareSize = 35;
-let squareYpos;
+
 
 
 
@@ -86,7 +88,7 @@ function drawSquare()  {
 function gameStart() {
   drawFloor(); 
   drawSquare();
-  jump();
+  //jump();
   
 
 }
@@ -142,14 +144,14 @@ function mouseInsideButton(left, right, top, bottom) {
 
 
 
-function keyPressed() {
-  if (keyCode === 32) {
-    i = true;
-    jump();
+// function keyPressed() {
+//   if (keyCode === 32) {
+//     i = true;
+//     jump();
     
        
-  }
-}
+//   }
+// }
 
 
 
@@ -159,29 +161,36 @@ function keyPressed() {
 
 
 
-function jump() { 
-  let jumpVelocity = -0.001;
-  if (keyIsPressed && keyCode === 32 && squareYpos === windowHeight - windowHeight/4 - squareSize) {
-    while ( squareYpos > windowHeight/2) {
-      squareYpos ;
-    }
+// function jump() { 
+//   yVelocity += gravity;
+//   squareYpos += yVelocity;
+
+//   if (squareYpos > windowHeight/2) {
+//     yVelocity = 0;
+//     squareYpos = windowHeight/4;
+//     if (keyIsDown(32)) {
+//       yVelocity += op;
+//     }
+  
+
+//   }
     
     
     
-    // let gravity = 5;
-    // squareYpos = squareYpos + jumpVelocity;
-    // jumpVelocity = jumpVelocity + gravity;
+// let gravity = 5;
+// squareYpos = squareYpos + jumpVelocity;
+// jumpVelocity = jumpVelocity + gravity;
 
     
     
     
     
-    // squareYpos = squareYpos + yForce;
-    // yForce = yForce - 0.5;
+// squareYpos = squareYpos + yForce;
+// yForce = yForce - 0.5;
     
 
-  }
-}
+// }
+
 
 
 
