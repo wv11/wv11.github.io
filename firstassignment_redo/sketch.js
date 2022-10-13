@@ -9,7 +9,7 @@
 let state = "startScreen";
 let startButtonSize = 200;
 let i;
-
+let yForce = 0;
 
 
 
@@ -44,7 +44,7 @@ function draw() {
 
 
 function game() {
-  console.log(state);
+  
   if (state === "startScreen") {
     startingScreen();
   }
@@ -71,8 +71,7 @@ function drawFloor() {
 }
 
 function drawSquare()  {
-  let squareY = squareYpos;
-  console.log(squareYpos);
+  
   let squarePosition = windowWidth/6;
   strokeWeight(3);
   stroke(0);
@@ -87,9 +86,7 @@ function drawSquare()  {
 function gameStart() {
   drawFloor(); 
   drawSquare();
-  if (keyIsPressed && keyCode === 32) {
-    jump();
-  }
+  jump();
   
 
 }
@@ -108,8 +105,8 @@ function startingScreen() {
   let buttonY = windowHeight/2 - startButtonSize/2;
   let buttonWidth = startButtonSize*2;
   let buttonHeight = startButtonSize;
-  let startX = windowWidth/2 - buttonWidth/2; 
-  let startY = windowHeight/2 + buttonHeight/4;
+  let startX = windowWidth/2 - startButtonSize/1.4; 
+  let startY = windowHeight/2 + buttonHeight/4.5;
   noStroke();  
   if(mouseInsideButton(buttonX, buttonX + buttonWidth, buttonY, buttonY + buttonHeight)) {
     fill(50);
@@ -117,8 +114,9 @@ function startingScreen() {
     buttonWidth = buttonWidth+20;
     buttonX = buttonX/1.05;
     buttonY = buttonY/1.05;
-    textSize(100);
-    startX = startX - 10; 
+    textSize(95);
+    startX = startX - 10;
+    startY = startY -10; 
   }
   else {
     fill(0);
@@ -144,25 +142,38 @@ function mouseInsideButton(left, right, top, bottom) {
 
 
 
-// function keyPressed() {
-//   if (keyCode === 32) {
-//     i = true;
-//     jump();
+function keyPressed() {
+  if (keyCode === 32) {
+    i = true;
+    jump();
     
        
-//   }
-   
-
+  }
+}
 
 
 
 
 
 function jump() {
-  squareYpos -= 10;
-  // while (squareYpos < windowHeight/2) {
-  //   squareYpos += 1;
-  console.log("jumpWorking");
+  let gravity = 5;
+  let jumpVelocity;
+  if (keyIsPressed && keyCode === 32 && squareYpos === windowHeight - windowHeight/4 - squareSize) {
+    squareYpos = squareYpos + jumpVelocity;
     
-  
+    
+    
+    
+    // squareYpos = squareYpos + yForce;
+    // yForce = yForce - 0.5;
+    
+
+  }
 }
+
+
+
+
+  
+
+ 
