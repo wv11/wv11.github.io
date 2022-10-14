@@ -133,7 +133,7 @@ function jump() {
     console.log(squareYpos);
     yVelocity += gravity; 
     squareYpos += yVelocity;
-    yVelocity = 0;
+    // yVelocity = 0;
     squareYpos = windowHeight/4;
     // if (keyIsDown(32)) {
     //   
