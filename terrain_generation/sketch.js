@@ -18,11 +18,7 @@ let state;
 
 function preload() {
   characterSprite = loadImage("oie_25203228iwiUzMjW.gif");
-
 }
-
-
-
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -42,8 +38,6 @@ function draw() {
     
     displayRectangleBG(i-startingLocationBG, theHeightsBG[i], 1);
   }
-
-
   for (let i = startingLocationFloor; i < startingLocationFloor + width; i++) { 
     displayRectangleFloor(i-startingLocationFloor, theHeightsFloor[i], 1);
     
@@ -52,9 +46,6 @@ function draw() {
     
     image(characterSprite, width/2, height - theHeightsFloor[i-width/2] - 150, 400, 400);
   }
-
-
-
   if (keyIsDown(68) && startingLocationFloor <= barrierEnd) {
     startingLocationFloor+=  floorMoveSpeed;
     startingLocationBG += bgMoveSpeed;
@@ -71,8 +62,6 @@ function draw() {
       startingLocationBG -= bgMoveSpeed*speedMultiplyer;
     }
   }
-  
-
 }
 
 function displayRectangleFloor(x, rectHeight, rectWidth) {
@@ -89,7 +78,6 @@ function displayRectangleBG(x, rectHeight, rectWidth) {
   rect(x, y, rectWidth, rectHeight);
 }
 
-
 function generateHeightsFloor(howMany) {
   let tempArray = [];
   let time1 = random(10000);
@@ -100,7 +88,6 @@ function generateHeightsFloor(howMany) {
   }
   return tempArray;
 }
-
 
 function generateHeightsBG(howMany) {
   let newArray = [];
