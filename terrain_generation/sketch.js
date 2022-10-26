@@ -17,7 +17,7 @@ let characterSprite;
 let state;
 
 function preload() {
-  characterSprite = loadImage("oie_25203228iwiUzMjW.gif");
+  characterSprite = loadImage("oie_270221522L2b3vO.gif");
 }
 
 function setup() {
@@ -43,7 +43,6 @@ function draw() {
     
   }
   for (let i = startingLocationFloor; i < startingLocationFloor + width; i++) {
-    
     image(characterSprite, width/2, height - theHeightsFloor[i-width/2] - 150, 400, 400);
   }
   if (keyIsDown(68) && startingLocationFloor <= barrierEnd) {
