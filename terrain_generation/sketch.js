@@ -42,9 +42,10 @@ function draw() {
     displayRectangleFloor(i-startingLocationFloor, theHeightsFloor[i], 1);
     
   }
-  for (let i = startingLocationFloor; i < startingLocationFloor + width; i++) {
-    image(characterSprite, width/2, height - theHeightsFloor[i-width/2] - 150, 400, 400);
-  }
+  // for (let i = startingLocationFloor; i < startingLocationFloor + width; i++) {
+    let x = Math.floor(width/2);
+    image(characterSprite, width/2, height - theHeightsFloor[startingLocationFloor+x] - 150, 400, 400);
+  // }
   if (keyIsDown(68) && startingLocationFloor <= barrierEnd) {
     startingLocationFloor+=  floorMoveSpeed;
     startingLocationBG += bgMoveSpeed;
