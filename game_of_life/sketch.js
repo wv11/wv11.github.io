@@ -2,11 +2,17 @@
 // Willa Simard
 // 10/27/2022
 
-let rows = 10;
-let cols = 10;
+let rows = 40;
+let cols = 40;
 let grid;
 let cellWidth;
 let cellHeight;
+let autoplay = false;
+let gosperGun;
+
+function preload() {
+  gosperGun = loadJSON("gosperglider.json");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -17,6 +23,9 @@ function setup() {
 
 function draw() {
   background(220);
+  if (autoplay && frameCount % 3 === 0) {
+    grid = takeTurn(grid);
+  }
   displayGrid(grid);
 }
 
@@ -30,6 +39,7 @@ function mousePressed() {
     grid[yPos][xPos] = 0;
   }
 
+
 }
 
 function keyPressed() {
@@ -38,6 +48,12 @@ function keyPressed() {
   }
   if (key === " ") {
     grid = takeTurn(grid);
+  }
+  if (key === "a") {
+    autoplay = !autoplay;
+  }
+  if (key === "g") {
+    grid = gosperGun;
   }
 }
 
