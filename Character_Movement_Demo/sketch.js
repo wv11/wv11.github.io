@@ -1,9 +1,13 @@
-// Project Title
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Character Movement Demo
+// Willa Simard
+
+// This is a small demo of character movement. I'd like to continue working on it in the future and possibly make something bigger out of it. 
+// I made the character and animations myself and made the background with help from the perlin noise demo in class. 
+
+// Extra For Experts:
+// Multiple layers and movement using perlin noise terrain.
+// Using different animations to represent different movements. 
+// (I feel like I focused more on the aesthetic quality rather than code quality so I don't think I extended my knowledge as much as I could have).
 
 let theHeightsFloor = [];
 let theHeightsBG = [];
@@ -105,7 +109,6 @@ function play() {
     directionState = "left";
   }
   
-  
   else {
     // idle right
     if (directionState === "right") {
@@ -117,8 +120,6 @@ function play() {
       image(characterIdleLeft, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
     }
   }
-
-
 }
 
 function startingScreen() {
@@ -134,6 +135,7 @@ function startingScreen() {
   rect(buttonX, buttonY, buttonWidth, buttonHeight);
   fill(77, 136, 255);
   text("PLAY", width/2- 110, height/2 + 35);
+  
   if (mouseInsideButton(buttonX, buttonX + buttonWidth, buttonY, buttonY + buttonHeight)) {
     mouseInButton = true;
     strokeWeight(10);
@@ -144,13 +146,16 @@ function startingScreen() {
     text("PLAY", width/2- 110, height/2 + 35);
   }
 
+  // instructions
   textSize(30);
   fill(255);
   stroke(0);
   text("Use A and D to move left and right", width/2 - 230, height - 250);
   text("Hold Shift to sprint", width/2 - 130, height- 200);
 
-  textSize(100);
+
+  // title
+  textSize(100); 
   fill(255);
   stroke(0, 26, 77);
   text("Character Movement Demo", width/2- 570, height/2 - 170);
