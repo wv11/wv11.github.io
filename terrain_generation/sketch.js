@@ -9,15 +9,28 @@ let theHeightsFloor = [];
 let theHeightsBG = [];
 let startingLocationFloor = 0;
 let startingLocationBG = 0;
-let floorMoveSpeed = 10;
-let bgMoveSpeed = 2;
+let floorMoveSpeed = 5;
+let bgMoveSpeed = 1;
 let barrierStart = 35;
 let speedMultiplyer = 2;
-let characterSprite;
-let state;
+let characterSize = 400;
+let mouseInButton = false;
+let characterIdleRight;
+let characterIdleLeft;
+let characterWalkRight;
+let characterWalkLeft;
+let characterRunRight;
+let characterRunLeft;
+let directionState = "right";
+let gameState = "start";
 
 function preload() {
-  characterSprite = loadImage("oie_270221522L2b3vO.gif");
+  characterIdleRight = loadImage("idle_right.gif");
+  characterIdleLeft = loadImage("idle_left.gif");
+  characterWalkRight = loadImage("walk_right.gif");
+  characterWalkLeft = loadImage("walk_left.gif");
+  characterRunRight = loadImage("run_right.gif");
+  characterRunLeft = loadImage("run_left.gif");
 }
 
 function setup() {
@@ -27,41 +40,122 @@ function setup() {
   imageMode(CENTER);
 }
 
-function draw() {
-
-  let barrierEnd = 10000 - width - 35;
+function draw() { 
   background(77, 136, 255);
+  if (gameState === "play") {
+    play();
+  }
+  if (gameState === "start") {
+    startingScreen();
+  }
 
-  
-  //fill(0);
-  for (let i = startingLocationBG; i < startingLocationBG + width; i++) {
-    
+}
+
+function mouseInsideButton(left, right, top, bottom) {
+  return mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
+}
+
+function mousePressed() {
+  if(gameState === "start" && mouseInButton === true) {
+    gameState = "play";
+  }
+
+}
+
+function play() {  
+  let barrierEnd = 10000 - width - 35;
+  for (let i = startingLocationBG; i < startingLocationBG + width; i++) {  
     displayRectangleBG(i-startingLocationBG, theHeightsBG[i], 1);
   }
   for (let i = startingLocationFloor; i < startingLocationFloor + width; i++) { 
-    displayRectangleFloor(i-startingLocationFloor, theHeightsFloor[i], 1);
-    
+    displayRectangleFloor(i-startingLocationFloor, theHeightsFloor[i], 1);  
   }
-  // for (let i = startingLocationFloor; i < startingLocationFloor + width; i++) {
+
   let x = Math.floor(width/2);
-  image(characterSprite, width/2, height - theHeightsFloor[startingLocationFloor+x] - 150, 400, 400);
-  // }
-  if (keyIsDown(68) && startingLocationFloor <= barrierEnd) {
+
+  // walking right
+  if (keyIsDown(68) && !keyIsDown(16) && startingLocationFloor <= barrierEnd) {
+    image(characterWalkRight, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
     startingLocationFloor+=  floorMoveSpeed;
     startingLocationBG += bgMoveSpeed;
-    if (keyIsDown(16) && keyIsDown(68)) {
-      startingLocationFloor+= floorMoveSpeed*speedMultiplyer;
-      startingLocationBG += bgMoveSpeed*speedMultiplyer;
-    }
+    directionState = "right";
   }
-  if (keyIsDown(65) && startingLocationFloor >= 35) {
+
+  // running right
+  else if (keyIsDown(16) && keyIsDown(68) && startingLocationFloor <= barrierEnd) {
+    image(characterRunRight, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
+    startingLocationFloor+= floorMoveSpeed*speedMultiplyer;
+    startingLocationBG += bgMoveSpeed*speedMultiplyer;
+    directionState = "right";
+  }
+
+  // walking left
+  else if (keyIsDown(65) && !keyIsDown(16) && startingLocationFloor >= 35) {
+    image(characterWalkLeft, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
     startingLocationFloor -= floorMoveSpeed;
     startingLocationBG -= bgMoveSpeed;
-    if (keyIsDown(16) && keyIsDown(65)) {
-      startingLocationFloor -= floorMoveSpeed*speedMultiplyer;
-      startingLocationBG -= bgMoveSpeed*speedMultiplyer;
+    directionState = "left";
+  }
+
+  // running left
+  else if (keyIsDown(16) && keyIsDown(65) && startingLocationFloor >= 35) {
+    image(characterRunLeft, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
+    startingLocationFloor -= floorMoveSpeed*speedMultiplyer;
+    startingLocationBG -= bgMoveSpeed*speedMultiplyer;
+    directionState = "left";
+  }
+  
+  
+  else {
+    // idle right
+    if (directionState === "right") {
+      image(characterIdleRight, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
+    }
+
+    // idle left
+    if (directionState === "left") {
+      image(characterIdleLeft, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
     }
   }
+
+
+}
+
+function startingScreen() {
+  let buttonWidth = 400;
+  let buttonHeight = 200;
+  let buttonX = width/2 - buttonWidth/2;
+  let buttonY = height/2 - buttonHeight/2;
+  background(0, 60, 179);
+  textSize(90);
+  fill(255);
+  stroke(0, 26, 77);
+  strokeWeight(10);
+  rect(buttonX, buttonY, buttonWidth, buttonHeight);
+  fill(77, 136, 255);
+  text("PLAY", width/2- 110, height/2 + 35);
+  if (mouseInsideButton(buttonX, buttonX + buttonWidth, buttonY, buttonY + buttonHeight)) {
+    mouseInButton = true;
+    strokeWeight(10);
+    stroke(0, 26, 77);
+    fill(77, 136, 255);
+    rect(buttonX, buttonY, buttonWidth, buttonHeight);
+    fill(255);
+    text("PLAY", width/2- 110, height/2 + 35);
+  }
+
+  textSize(30);
+  fill(255);
+  stroke(0);
+  text("Use A and D to move left and right", width/2 - 230, height - 250);
+  text("Hold Shift to sprint", width/2 - 130, height- 200);
+
+  textSize(100);
+  fill(255);
+  stroke(0, 26, 77);
+  text("Character Movement Demo", width/2- 570, height/2 - 170);
+
+
 }
 
 function displayRectangleFloor(x, rectHeight, rectWidth) {
