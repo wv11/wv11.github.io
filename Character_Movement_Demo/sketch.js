@@ -13,10 +13,11 @@ let theHeightsFloor = [];
 let theHeightsBG = [];
 let startingLocationFloor = 0;
 let startingLocationBG = 0;
-let floorMoveSpeed = 5;
+let floorMoveSpeed = 6;
 let bgMoveSpeed = 1;
 let barrierStart = 35;
-let speedMultiplyer = 2;
+let bgSpeedMult = 3;
+let floorSpeedMult = 15;
 let characterSize = 400;
 let mouseInButton = false;
 let characterIdleRight;
@@ -88,8 +89,8 @@ function play() {
   // running right
   else if (keyIsDown(16) && keyIsDown(68) && startingLocationFloor <= barrierEnd) {
     image(characterRunRight, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
-    startingLocationFloor+= floorMoveSpeed*speedMultiplyer;
-    startingLocationBG += bgMoveSpeed*speedMultiplyer;
+    startingLocationFloor+= floorSpeedMult;
+    startingLocationBG += bgSpeedMult;
     directionState = "right";
   }
 
@@ -104,11 +105,11 @@ function play() {
   // running left
   else if (keyIsDown(16) && keyIsDown(65) && startingLocationFloor >= 35) {
     image(characterRunLeft, width/2, height - theHeightsFloor[startingLocationFloor+x] - 165, characterSize, characterSize);
-    startingLocationFloor -= floorMoveSpeed*speedMultiplyer;
-    startingLocationBG -= bgMoveSpeed*speedMultiplyer;
+    startingLocationFloor -= floorSpeedMult;
+    startingLocationBG -= bgSpeedMult;
     directionState = "left";
   }
-  
+
   else {
     // idle right
     if (directionState === "right") {
