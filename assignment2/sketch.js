@@ -5,8 +5,8 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let rows = 12;
-let cols = 12;
+let rows = 17;
+let cols = 17;
 let base;
 let cellHeight;
 let cellWidth;
@@ -15,10 +15,13 @@ let playerY = 0;
 let startingPoint = 3;
 let floorTex;
 let walls;
+let layout;
 
 
 function preload() {
   floorTex = loadImage("floor_texture.png");
+  layout = loadJSON("layout.json");
+
 }
 
 function setup() {
@@ -26,19 +29,19 @@ function setup() {
   cellHeight = height/rows;
   cellWidth = width/2/cols;
   base = createArray(rows, cols);
-  startingPoint = base[base.length][0];
+  //startingPoint = base[base.length][0];
   
 }
 
 function draw() {
   background(0);
-  displayGame(base);
+  displayGame(layout);
 }
 
 function displayGame(base) {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      if (base [y][x] === 0 || base[y][x] === 3) {
+      if (base [y][x] === 0) {
         rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         image(floorTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
