@@ -2,8 +2,8 @@
 // Willa Simard
 // 10/27/2022
 
-let rows = 40;
-let cols = 40;
+let rows = 17;
+let cols = 17;
 let grid;
 let cellWidth;
 let cellHeight;
@@ -19,6 +19,7 @@ function setup() {
   cellWidth = width/cols;
   cellHeight = height/rows;
   grid = createRandom2dArray(cols, rows);
+  
 }
 
 function draw() {
@@ -54,6 +55,16 @@ function keyPressed() {
   }
   if (key === "g") {
     grid = gosperGun;
+  }
+  if (key === "q") {
+    let xPos = Math.floor(mouseX/cellWidth);
+    let yPos = Math.floor(mouseY/cellHeight);
+    if ( grid[yPos][xPos] === 1) {
+      grid[yPos][xPos] = 2;
+    }
+    else if (grid[yPos][xPos] === 2) {
+      grid[yPos][xPos] = 1;
+    }
   }
 }
 
@@ -108,6 +119,9 @@ function displayGrid(grid) {
       }
       else if (grid[y][x] === 1) {
         fill(0);
+      }
+      else if (grid[y][x] === 2) {
+        fill(100);
       }
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
