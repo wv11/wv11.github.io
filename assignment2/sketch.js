@@ -12,7 +12,12 @@ let cellHeight;
 let cellWidth;
 let playerX= 0;
 //let playerY = height;
-let startingPoint;
+let startingPoint = 3;
+let floorTex;
+
+function preload() {
+  floorTex = loadImage("floor_texture.png");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -27,14 +32,23 @@ function draw() {
 }
 
 function displayGame(base) {
+  base[11][0] = startingPoint;
+  base[9][0] = 1;
+  base[11][5] = 1;
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      if (base[y][x] === 0){
-        fill(255);
-      }
-      else if (base[y][x] === 1) {
-        fill(0);
-      }
+      // if (base[y][x] === 0){
+      //   //image(floorTex, x, y , cellWidth, cellHeight );
+      //   fill(255);
+        
+      // }
+      // else if (base[y][x] === 1) {
+      //   fill(0);
+
+      // }
+      // for (let i = 0; i < base.length / 2; i++ ) {
+      //   if (base)
+  
 
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
@@ -44,8 +58,10 @@ function displayGame(base) {
 function createArray(cols, rows) {
   let emptyArray = [];
   for (let y = 0; y < rows; y++) {
+
     emptyArray.push([]);
     for (let x = 0; x < cols; x++) { 
+      
       emptyArray[y].push(0);
     }
 
