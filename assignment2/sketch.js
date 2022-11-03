@@ -42,18 +42,19 @@ function draw() {
 }
 
 function displayGame(base) {
+  noStroke();
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       if (base [y][x] === 0) {
-        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        
         image(floorTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
       else if (base [y][x] === 3) {
-        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        
         image(chestTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
       else if (base [y][x] === 4) {
-        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        
         image(chestTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
     }
