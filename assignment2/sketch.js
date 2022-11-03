@@ -14,14 +14,17 @@ let playerX= 0;
 let playerY = 0;
 let startingPoint = 3;
 let floorTex;
+let chestTexDown;
+let chestTexUp;
 let walls;
 let layout;
 
 
 function preload() {
   floorTex = loadImage("floor_texture.png");
+  chestTexDown = loadImage("chestTexDown.png");
+  chestTexUp = loadImage("chestTexUp.png");
   layout = loadJSON("layout.json");
-
 }
 
 function setup() {
@@ -29,7 +32,7 @@ function setup() {
   cellHeight = height/rows;
   cellWidth = width/2/cols;
   base = createArray(rows, cols);
-  //startingPoint = base[base.length][0];
+  // startingPoint = base[base.length][0];
   
 }
 
@@ -44,6 +47,14 @@ function displayGame(base) {
       if (base [y][x] === 0) {
         rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         image(floorTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }
+      else if (base [y][x] === 3) {
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(chestTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }
+      else if (base [y][x] === 4) {
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(chestTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
     }
   }
