@@ -66,6 +66,17 @@ function keyPressed() {
       grid[yPos][xPos] = 1;
     }
   }
+  if (key === "r") {
+    let xPos = Math.floor(mouseX/cellWidth);
+    let yPos = Math.floor(mouseY/cellHeight);
+    if ( grid[yPos][xPos] === 0) {
+      grid[yPos][xPos] = 3;
+    }
+    else if (grid[yPos][xPos] === 3) {
+      grid[yPos][xPos] = 0;
+    }
+
+  }
 }
 
 function takeTurn(grid) {
@@ -122,6 +133,9 @@ function displayGrid(grid) {
       }
       else if (grid[y][x] === 2) {
         fill(100);
+      }
+      else if (grid[y][x] === 3) {
+        fill("red");
       }
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
