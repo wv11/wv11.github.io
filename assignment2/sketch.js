@@ -16,7 +16,11 @@ let startingPoint = 3;
 let floorTex;
 let chestTexDown;
 let chestTexUp;
-let walls;
+let wallTex;
+let doorTexLeft;
+let doorTexRight;
+let doorTexDown;
+let doorTexUp;
 let layout;
 
 
@@ -24,6 +28,11 @@ function preload() {
   floorTex = loadImage("floor_texture.png");
   chestTexDown = loadImage("chestTexDown.png");
   chestTexUp = loadImage("chestTexUp.png");
+  wallTex = loadImage("wall_texture.png");
+  doorTexLeft = loadImage("door_left.png");
+  doorTexRight = loadImage("door_right.png");
+  doorTexUp = loadImage("door_up.png");
+  doorTexDown = loadImage("door_down.png");
   layout = loadJSON("layout.json");
 }
 
@@ -49,6 +58,12 @@ function displayGame(base) {
         
         image(floorTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
+      else if (base[y][x] === 1) {
+        image(wallTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }
+      else if (base[y][x] === 2) {
+        image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }
       else if (base [y][x] === 3) {
         
         image(chestTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
@@ -57,6 +72,15 @@ function displayGame(base) {
         
         image(chestTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
+      else if (base [y][x] === 5) {
+        
+        image(doorTexRight, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }
+      else if (base [y][x] === 7) {
+        
+        image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }
+
     }
   }
 }
