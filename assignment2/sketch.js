@@ -21,6 +21,7 @@ let doorTexLeft;
 let doorTexRight;
 let doorTexDown;
 let doorTexUp;
+let playerFront;
 let layout;
 
 
@@ -33,6 +34,7 @@ function preload() {
   doorTexRight = loadImage("door_right.png");
   doorTexUp = loadImage("door_up.png");
   doorTexDown = loadImage("door_down.png");
+  playerFront = loadImage("player_front.png");
   layout = loadJSON("layout.json");
 }
 
@@ -41,8 +43,7 @@ function setup() {
   cellHeight = height/rows;
   cellWidth = width/2/cols;
   base = createArray(rows, cols);
-  // startingPoint = base[base.length][0];
-  
+  base[playerY][playerX] = 8; 
 }
 
 function draw() {
@@ -54,8 +55,7 @@ function displayGame(base) {
   noStroke();
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      if (base [y][x] === 0) {
-        
+      if (base [y][x] === 0) {       
         image(floorTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
       else if (base[y][x] === 1) {
@@ -65,19 +65,18 @@ function displayGame(base) {
         image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
       else if (base [y][x] === 3) {
-        
         image(chestTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
-      else if (base [y][x] === 4) {
-        
+      else if (base [y][x] === 4) {        
         image(chestTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
-      else if (base [y][x] === 5) {
-        
+      else if (base [y][x] === 5) {        
         image(doorTexRight, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
-      else if (base [y][x] === 7) {
-        
+      else if (base [y][x] === 6) {        
+        image(doorTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }     
+      else if (base [y][x] === 7) {        
         image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
 
