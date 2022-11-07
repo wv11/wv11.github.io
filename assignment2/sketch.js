@@ -10,9 +10,7 @@ let cols = 17;
 let base;
 let cellHeight;
 let cellWidth;
-let playerX= 0;
-let playerY = 0;
-let startingPoint = 3;
+let startingPoint;
 let floorTex;
 let chestTexDown;
 let chestTexUp;
@@ -23,6 +21,15 @@ let doorTexDown;
 let doorTexUp;
 let playerFront;
 let layout;
+let playerX = 0;
+let playerY = 16;
+let door1open;
+let door2open;
+let door3open;
+let door4open;
+let door5open;
+let door6open;
+
 
 
 function preload() {
@@ -43,7 +50,7 @@ function setup() {
   cellHeight = height/rows;
   cellWidth = width/2/cols;
   base = createArray(rows, cols);
-  base[playerY][playerX] = 8; 
+  layout[playerY][playerX] = 8;
 }
 
 function draw() {
@@ -51,10 +58,42 @@ function draw() {
   displayGame(layout);
 }
 
+function keyPressed() {
+  if (keyCode === 68) {
+    if (layout[playerY][playerX + 1] === 0) {
+      layout[playerY][playerX] = 0;
+      playerX++;
+      layout[playerY][playerX] = 8;
+    }
+  }
+  if (keyCode === 65) {
+    if (layout[playerY][playerX - 1] === 0){
+      layout[playerY][playerX] = 0;
+      playerX--;
+      layout[playerY][playerX] = 8;
+    }
+  }
+  if (keyCode === 87) {
+    if (layout[playerY - 1][playerX] === 0) {
+      layout[playerY][playerX] = 0;
+      playerY--;
+      layout[playerY][playerX] = 8;
+    }
+  }
+  if (keyCode === 83) {
+    if (layout[playerY + 1][playerX] === 0) {
+      layout[playerY][playerX] = 0;
+      playerY++;
+      layout[playerY][playerX] = 8;
+    }
+  }
+}
+
 function displayGame(base) {
   noStroke();
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
+
       if (base [y][x] === 0) {       
         image(floorTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
@@ -79,6 +118,10 @@ function displayGame(base) {
       else if (base [y][x] === 7) {        
         image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
+      else if (base[y][x] === 8) {
+        image(playerFront, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+
 
     }
   }
