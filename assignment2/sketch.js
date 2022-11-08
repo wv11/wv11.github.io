@@ -20,15 +20,13 @@ let doorTexRight;
 let doorTexDown;
 let doorTexUp;
 let playerFront;
+let startButton;
 let layout;
 let playerX = 0;
 let playerY = 16;
-let door1open;
-let door2open;
-let door3open;
-let door4open;
-let door5open;
-let door6open;
+let doorState;
+let gameState = "start";
+let inventory = [];
 
 
 
@@ -43,6 +41,8 @@ function preload() {
   doorTexDown = loadImage("door_down.png");
   playerFront = loadImage("player_front.png");
   layout = loadJSON("layout.json");
+  startButton = loadImage("startButton.png");
+
 }
 
 function setup() {
@@ -55,7 +55,15 @@ function setup() {
 
 function draw() {
   background(0);
-  displayGame(layout);
+  if (gameState === "play") {
+    displayGame(layout);
+    displayInv();
+  }
+  else if (gameState === "start") {
+    startScreen();
+
+  }
+
 }
 
 function keyPressed() {
@@ -117,6 +125,9 @@ function displayGame(base) {
       }     
       else if (base [y][x] === 7) {        
         image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        if (doorState === "doorTwoOpen") {
+          image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        }
       }
       else if (base[y][x] === 8) {
         image(playerFront, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
@@ -136,4 +147,16 @@ function createArray(cols, rows) {
     }
   }
   return emptyArray;
+}
+
+function startScreen() {
+  background("black");
+  let buttonWidth = 300;
+  let buttonHeight = 200;
+  image(startButton, windowWidth/2 - buttonWidth/2, windowHeight/2 - buttonHeight/2, buttonWidth, buttonHeight);
+
+}
+
+function displayInv() {
+
 }
