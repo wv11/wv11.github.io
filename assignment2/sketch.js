@@ -25,6 +25,8 @@ let layout;
 let playerX = 0;
 let playerY = 16;
 let doorState;
+let verDoor = false;
+let horDoor = false;
 let gameState = "start";
 let inventory = [];
 
@@ -57,6 +59,7 @@ function draw() {
   background(0);
   if (gameState === "play") {
     displayGame(layout);
+    
     displayInv();
   }
   else if (gameState === "start") {
@@ -66,41 +69,81 @@ function draw() {
 
 }
 
+function mousePressed() {
+  if (gameState === "start" && mouseInsideButton(windowWidth/2 - 300/2, windowWidth/2 + 300/2, windowHeight/2 - 130/2, windowHeight/2 + 90/2) ) {
+    gameState = "play";
+  }
+}
+
+function mouseInsideButton(left, right, top, bottom) {
+  return mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
+}
+
 function keyPressed() {
-  if (keyCode === 68) {
+  console.log(verDoor);
+  console.log(horDoor);
+  if (keyCode === 68) { //right
     if (layout[playerY][playerX + 1] === 0) {
       layout[playerY][playerX] = 0;
       playerX++;
       layout[playerY][playerX] = 8;
     }
+    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16) {
+      verDoor = true;
+    }
+    
+    if (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16) {
+      verDoor = true;
+    }
   }
-  if (keyCode === 65) {
+  if (keyCode === 65) { //left
     if (layout[playerY][playerX - 1] === 0){
       layout[playerY][playerX] = 0;
       playerX--;
       layout[playerY][playerX] = 8;
     }
+    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16) {
+      verDoor = true;
+    }
+    
+    if (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16) {
+      verDoor = true;
+    }
   }
-  if (keyCode === 87) {
+  if (keyCode === 87) { //up
     if (layout[playerY - 1][playerX] === 0) {
       layout[playerY][playerX] = 0;
       playerY--;
       layout[playerY][playerX] = 8;
     }
+    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13) {
+      horDoor = true;
+    }
+    if (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13) {
+      horDoor = true;
+    }
   }
-  if (keyCode === 83) {
+  if (keyCode === 83) { //down
     if (layout[playerY + 1][playerX] === 0) {
       layout[playerY][playerX] = 0;
       playerY++;
       layout[playerY][playerX] = 8;
     }
+    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13) {
+      horDoor = true;
+    }
+    if (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13) {
+      horDoor = true;
+    }
   }
+
 }
 
-function displayGame(base) {
+function displayGame(base) {  
   noStroke();
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
+
 
       if (base [y][x] === 0) {       
         image(floorTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
@@ -108,32 +151,51 @@ function displayGame(base) {
       else if (base[y][x] === 1) {
         image(wallTex, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
-      else if (base[y][x] === 2) {
-        image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
-      }
       else if (base [y][x] === 3) {
         image(chestTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
       }
       else if (base [y][x] === 4) {        
         image(chestTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      }      
+      else if (base[y][x] === 8) {
+        image(playerFront, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
-      else if (base [y][x] === 5) {        
-        image(doorTexRight, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+      else if (base[y][x] === 11) { // first door
+        image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        if (doorState === "doorOneOpen") {
+          image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        }
       }
-      else if (base [y][x] === 6) {        
-        image(doorTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
-      }     
-      else if (base [y][x] === 7) {        
+      else if (base [y][x] === 12) {       // second door  
         image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
         if (doorState === "doorTwoOpen") {
           image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
         }
       }
-      else if (base[y][x] === 8) {
-        image(playerFront, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      else if (base [y][x] === 13) {        // third door 
+        image(doorTexRight, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        if (doorState === "doorThreeOpen") {
+          image(doorTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        }
       }
-
-
+      else if (base [y][x] === 14) {         // forth door
+        image(doorTexUp, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        if (doorState === "doorFourOpen") {
+          image(doorTexRight, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        }
+      }   
+      else if (base[y][x] ===15) { // fifth door
+        image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        if (doorState === "doorFiveOpen") {
+          image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        }
+      } 
+      else if (base[y][x] ===16) { // sixth door
+        image(doorTexLeft, x*cellWidth, y*cellHeight, cellWidth, cellHeight );
+        if (doorState === "doorSixOpen") {
+          image(doorTexDown, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        }
+      } 
     }
   }
 }
@@ -154,9 +216,17 @@ function startScreen() {
   let buttonWidth = 300;
   let buttonHeight = 200;
   image(startButton, windowWidth/2 - buttonWidth/2, windowHeight/2 - buttonHeight/2, buttonWidth, buttonHeight);
-
+  if (mouseInsideButton(windowWidth/2 - 300/2, windowWidth/2 + 300/2, windowHeight/2 - 130/2, windowHeight/2 + 90/2)) {
+    buttonWidth += 50;
+    buttonHeight += 25;
+    image(startButton, windowWidth/2 - buttonWidth/2, windowHeight/2 - buttonHeight/2, buttonWidth, buttonHeight);
+  }
 }
 
 function displayInv() {
+
+}
+
+function checkForDoors() {
 
 }
