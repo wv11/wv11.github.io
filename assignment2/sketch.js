@@ -80,35 +80,35 @@ function mouseInsideButton(left, right, top, bottom) {
 }
 
 function keyPressed() {
-  console.log(verDoor);
-  console.log(horDoor);
+
   if (keyCode === 68) { //right
     if (layout[playerY][playerX + 1] === 0) {
       layout[playerY][playerX] = 0;
       playerX++;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16) {
+    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16 || (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16)) {
       verDoor = true;
+    }   
+    else {
+      verDoor = false;
     }
-    
-    if (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16) {
-      verDoor = true;
-    }
+
   }
+
   if (keyCode === 65) { //left
     if (layout[playerY][playerX - 1] === 0){
       layout[playerY][playerX] = 0;
       playerX--;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16) {
+    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16 || (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16)) {
       verDoor = true;
+    }   
+    else {
+      verDoor = false;
     }
-    
-    if (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16) {
-      verDoor = true;
-    }
+
   }
   if (keyCode === 87) { //up
     if (layout[playerY - 1][playerX] === 0) {
@@ -116,11 +116,11 @@ function keyPressed() {
       playerY--;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13) {
+    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13 || (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13)) {
       horDoor = true;
     }
-    if (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13) {
-      horDoor = true;
+    else {
+      horDoor = false;
     }
   }
   if (keyCode === 83) { //down
@@ -129,13 +129,15 @@ function keyPressed() {
       playerY++;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13) {
+    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13 || (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13)) {
       horDoor = true;
-    }
-    if (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13) {
-      horDoor = true;
+    } 
+    else {
+      horDoor = false;
     }
   }
+  console.log(verDoor);
+  console.log(horDoor);
 
 }
 
