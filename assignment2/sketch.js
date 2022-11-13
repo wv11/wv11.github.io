@@ -229,6 +229,6 @@ function displayInv() {
 
 }
 
-function checkForDoors() {
+function atDoor() {
 
 }
