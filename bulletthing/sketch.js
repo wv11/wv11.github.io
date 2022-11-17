@@ -9,8 +9,8 @@ class Bullet {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.dx = 10;
-    this.diameter = 5;
+    this.dx = 20;
+    this.diameter = 7;
     this.color = color(0);
   }
 
@@ -39,13 +39,18 @@ function draw() {
   background(255);
   for (let i = 0; i < theBullets.length; i ++) {
     theBullets[i].move();
-    theBullets[i].display();
+    if (theBullets[i].isDead()) {
+      theBullets.splice(i, 1);
+    }
+    else {
+      theBullets[i].display();
+    }      
   }
 }
 
 
 function mousePressed() {
-  let someBullet = new Bullet(50, windowHeight/2);
+  let someBullet = new Bullet(150, windowHeight/2);
   theBullets.push(someBullet);
 
 }

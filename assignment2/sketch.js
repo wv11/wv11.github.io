@@ -87,13 +87,6 @@ function keyPressed() {
       playerX++;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16 || (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16)) {
-      verDoor = true;
-    }   
-    else {
-      verDoor = false;
-    }
-
   }
 
   if (keyCode === 65) { //left
@@ -102,42 +95,35 @@ function keyPressed() {
       playerX--;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY][playerX+1] === 11 || layout[playerY][playerX+1] === 13 || layout[playerY][playerX+1] === 15 || layout[playerY][playerX+1] === 16 || (layout[playerY][playerX-1] === 11 || layout[playerY][playerX-1] === 13 || layout[playerY][playerX-1] === 15 || layout[playerY][playerX-1] === 16)) {
-      verDoor = true;
-    }   
-    else {
-      verDoor = false;
-    }
-
   }
+
   if (keyCode === 87) { //up
     if (layout[playerY - 1][playerX] === 0) {
       layout[playerY][playerX] = 0;
       playerY--;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13 || (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13)) {
-      horDoor = true;
-    }
-    else {
-      horDoor = false;
-    }
+
   }
+
   if (keyCode === 83) { //down
     if (layout[playerY + 1][playerX] === 0) {
       layout[playerY][playerX] = 0;
       playerY++;
       layout[playerY][playerX] = 8;
     }
-    if (layout[playerY + 1][playerX] === 12 || layout[playerY + 1][playerX] === 13 || (layout[playerY - 1][playerX] === 12 || layout[playerY - 1][playerX] === 13)) {
-      horDoor = true;
-    } 
-    else {
-      horDoor = false;
+
+  }
+
+  if (layout[playerY][playerX + 1] === 11) {
+    if (keyCode === 69) {
+      doorState = "doorOneOpen";
+    }
+    if (doorState === "doorOneOpen" && keyCode === 68) {
+      playerX = playerX + 2;
     }
   }
-  console.log(verDoor);
-  console.log(horDoor);
+
 
 }
 
@@ -229,9 +215,3 @@ function displayInv() {
 
 }
 
-function keyPressed() {
-  if (layout[playerY][playerX + 1] === 11) {
-    if (keyCode === )
-  }
-
-}
