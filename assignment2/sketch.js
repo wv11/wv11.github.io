@@ -229,6 +229,9 @@ function displayInv() {
 
 }
 
-function atDoor() {
+function keyPressed() {
+  if (layout[playerY][playerX + 1] === 11) {
+    if (keyCode === )
+  }
 
 }
