@@ -25,10 +25,8 @@ let layout;
 let playerX = 0;
 let playerY = 16;
 let doorState;
-let verDoor = false;
-let horDoor = false;
 let gameState = "start";
-let inventory = [];
+//let inventory = [];
 
 
 
@@ -59,8 +57,6 @@ function draw() {
   background(0);
   if (gameState === "play") {
     displayGame(layout);
-    
-    displayInv();
   }
   else if (gameState === "start") {
     startScreen();
@@ -115,13 +111,115 @@ function keyPressed() {
 
   }
 
-  if (layout[playerY][playerX + 1] === 11) {
+  if (layout[playerY][playerX + 1] === 11 || layout[playerY][playerX - 1] === 11) {
+
     if (keyCode === 69) {
       doorState = "doorOneOpen";
     }
     if (doorState === "doorOneOpen" && keyCode === 68) {
+      layout[playerY][playerX] = 0;
       playerX = playerX + 2;
+      layout[playerY][playerX] = 8;
     }
+    else if (doorState === "doorOneOpen" && keyCode === 65) {
+      layout[playerY][playerX] = 0;
+      playerX = playerX - 2;
+      layout[playerY][playerX] = 8;      
+    }
+
+  }
+  if (layout[playerY - 1][playerX] === 12 || layout[playerY + 1][playerX] === 12) {
+
+    if (keyCode === 69) {
+      doorState = "doorTwoOpen";
+    }
+
+    if (doorState === "doorTwoOpen" && keyCode === 87) {
+      layout[playerY][playerX] = 0;
+      playerY = playerY - 2;
+      layout[playerY][playerX] = 8;
+    }
+    else if (doorState === "doorTwoOpen" && keyCode === 83) {
+      layout[playerY][playerX] = 0;
+      playerY = playerY + 2;
+      layout[playerY][playerX] = 8;      
+    }
+
+  }
+  if (layout[playerY][playerX - 1] === 13 || layout[playerY][playerX +1] === 13) {
+
+    if (keyCode === 69) {
+      doorState = "doorThreeOpen";
+    }
+
+    if (doorState === "doorThreeOpen" && keyCode === 65) {
+      layout[playerY][playerX] = 0;
+      playerX = playerX - 2;
+      layout[playerY][playerX] = 8;
+    }
+    else if (doorState === "doorThreeOpen" && keyCode === 68) {
+      layout[playerY][playerX] = 0;
+      playerX = playerX + 2;
+      layout[playerY][playerX] = 8;      
+    }
+
+  }
+  if (layout[playerY + 1][playerX] === 14 || layout[playerY - 1][playerX] === 14) {
+
+    if (keyCode === 69) {
+      doorState = "doorFourOpen";
+    }
+
+    if (doorState === "doorFourOpen" && keyCode === 83) {
+      if (layout[playerY + 1][playerX] !== 1) {
+        layout[playerY][playerX] = 0;
+        playerY = playerY + 2;
+        layout[playerY][playerX] = 8;
+      }
+    }
+    else if (doorState === "doorFourOpen" && keyCode === 87) {     
+      layout[playerY][playerX] = 0;
+      playerY = playerY - 2;
+      layout[playerY][playerX] = 8;      
+    }
+
+  }
+  if (layout[playerY][playerX + 1] === 15 || layout[playerY][playerX - 1] === 15) {
+
+    if (keyCode === 69) {
+      doorState = "doorFiveOpen";
+    }
+
+    if (doorState === "doorFiveOpen" && keyCode === 68) {
+      layout[playerY][playerX] = 0;
+      playerX = playerX + 2;
+      layout[playerY][playerX] = 8;
+    }
+    else if (doorState === "doorFiveOpen" && keyCode === 65) {
+      layout[playerY][playerX] = 0;
+      playerX = playerX - 2;
+      layout[playerY][playerX] = 8;      
+    }
+    
+
+  }
+  if (layout[playerY][playerX + 1] === 16 || layout[playerY][playerX - 1] === 16) {
+
+    if (keyCode === 69) {
+      doorState = "doorSixOpen";
+    }
+
+    if (doorState === "doorSixOpen" && keyCode === 68) {
+      layout[playerY][playerX] = 0;
+      playerX = playerX + 2;
+      layout[playerY][playerX] = 8;      
+    }
+    else if (doorState === "doorSixOpen" && keyCode === 65) {
+      layout[playerY][playerX] = 0;
+      playerX = playerX - 2;
+      layout[playerY][playerX] = 8;      
+    }
+
   }
 
 
@@ -211,7 +309,5 @@ function startScreen() {
   }
 }
 
-function displayInv() {
 
-}
 
