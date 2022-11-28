@@ -1,8 +1,8 @@
-// 
 // Willa Simard
 
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// WASD to move
+// e to open doors
+// I wasnt able to add everything I wanted to so all you can do it move around and go through doors
 
 let rows = 17;
 let cols = 17;
@@ -25,7 +25,7 @@ let playerX = 0;
 let playerY = 16;
 let doorState;
 let gameState = "start";
-//let inventory = [];
+
 
 
 
